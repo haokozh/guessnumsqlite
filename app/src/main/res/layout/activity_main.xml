@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".MainActivity">
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:textAlignment="center"
+    android:textSize="30sp"
+    android:text="@string/app_title"
+    />
+
+  <TextView
+    android:id="@+id/userName"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:layout_marginTop="100dp"
+    android:text="@string/playing_user_name"
+    android:textAlignment="center"
+    android:textSize="20sp"
+    />
+
+  <EditText
+    android:id="@+id/inputField"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginTop="130dp"
+    android:textSize="20sp"
+    android:inputType="number"
+    android:hint="@string/input_hint"
+    android:autofillHints="@string/input_hint"
+    tools:targetApi="o" />
+
+  <Button
+    android:id="@+id/enterButton"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginTop="200dp"
+    android:text="@string/button_text"
+    android:onClick="printResult"
+    />
+
+  <EditText
+    android:id="@+id/outputField"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_marginTop="250dp"
+    android:autofillHints="@string/output_hint"
+    android:labelFor="@id/outputField"
+    tools:targetApi="o"
+    android:inputType="none"
+    android:focusable="false"
+    android:gravity="top|start"/>
+
+</RelativeLayout>
