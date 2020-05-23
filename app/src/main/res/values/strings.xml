@@ -2,7 +2,11 @@
   <string name="app_name">AdvancedGuessNum</string>
   <string name="app_title">\nAdvanced Guess Number</string>
   <string name="input_hint">Enter Something</string>
+  <string name="input_name">Enter Your Name</string>
   <string name="button_text">Enter</string>
+  <string name="button_back">Back</string>
+  <string name="button_start">Start</string>
+  <string name="button_exit">Exit</string>
   <string name="playing_user_name">User Name : haokozh</string>
   <string name="output_hint">Output</string>
 </resources>
