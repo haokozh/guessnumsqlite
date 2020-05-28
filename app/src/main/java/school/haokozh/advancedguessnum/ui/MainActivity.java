@@ -1,4 +1,4 @@
-package school.haokozh.advancedguessnum;
+package school.haokozh.advancedguessnum.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
+import school.haokozh.advancedguessnum.R;
 
 public class MainActivity extends AppCompatActivity {
 

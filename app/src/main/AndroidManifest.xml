@@ -10,9 +10,9 @@
     android:theme="@style/AppTheme"
     android:allowBackup="true"
     android:fullBackupContent="">
-    <activity android:name=".GameActivity" />
-    <activity android:name=".LeaderboardActivity" />
-    <activity android:name=".MainActivity">
+    <activity android:name=".ui.GameActivity" />
+    <activity android:name=".ui.LeaderboardActivity" />
+    <activity android:name=".ui.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

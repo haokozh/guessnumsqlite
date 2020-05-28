@@ -1,7 +1,8 @@
-package school.haokozh.advancedguessnum;
+package school.haokozh.advancedguessnum.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import school.haokozh.advancedguessnum.R;
 
 public class LeaderboardActivity extends AppCompatActivity {
 

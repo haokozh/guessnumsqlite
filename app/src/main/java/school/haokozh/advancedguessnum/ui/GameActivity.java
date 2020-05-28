@@ -1,4 +1,4 @@
-package school.haokozh.advancedguessnum;
+package school.haokozh.advancedguessnum.ui;
 
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import school.haokozh.advancedguessnum.R;
 
 public class GameActivity extends AppCompatActivity {
 
