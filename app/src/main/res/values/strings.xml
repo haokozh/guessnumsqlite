@@ -7,7 +7,7 @@
   <string name="button_back">Back</string>
   <string name="button_start">Start</string>
   <string name="button_exit">Exit</string>
-  <string name="playing_user_name">User Name : haokozh</string>
+  <string name="playing_user_name">User Name : </string>
   <string name="output_hint">Output</string>
   <string name="button_query">query</string>
   <string name="button_delete">delete</string>

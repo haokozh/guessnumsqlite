@@ -1,43 +1,43 @@
-package school.haokozh.advancedguessnum.ui;
+package school.haokozh.advancedguessnum;
 
+import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import school.haokozh.advancedguessnum.R;
 
 public class GameActivity extends AppCompatActivity {
 
   private int countA;
   private long startTime;
+  private int guessCount;
 
-  EditText output;
-  EditText input;
-  Button enter;
+  private EditText output;
+  private EditText input;
+  private Button enter;
+  private Intent intent = this.getIntent();
 
-  Random random = new Random();
-  Set<Integer> set = new HashSet<>();
-  List<Integer> randList = new ArrayList<>();
+  private Random random = new Random();
+  private Set<Integer> set = new HashSet<>();
+  private List<Integer> randList = new ArrayList<>();
+  private StringBuilder builder = new StringBuilder();
 
-  StringBuilder builder = new StringBuilder();
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_PAN);
     setContentView(R.layout.activity_main);
 
+    TextView userNameTextView = findViewById(R.id.user_name);
     output = findViewById(R.id.outputField);
     input = findViewById(R.id.inputField);
     enter = findViewById(R.id.enterButton);
@@ -47,16 +47,14 @@ public class GameActivity extends AppCompatActivity {
 
     setOnClickListener();
     getRandomNumber();
+    String userNameResult = userNameTextView.getText() + intent.getStringExtra("user_name");
+    userNameTextView.setText(userNameResult);
+
     startTime = System.currentTimeMillis();
   }
 
   private void setOnClickListener() {
-    enter.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        printResult(v);
-      }
-    });
+    enter.setOnClickListener(this::printResult);
   }
 
   private void getRandomNumber() {
@@ -104,7 +102,13 @@ public class GameActivity extends AppCompatActivity {
     return result.toString();
   }
 
-  public void printResult(View v) {
+  private void insertUserRecord(String userName, long playTime, int guessCount) {
+    GameDatabase db = new GameDatabase(GameActivity.this);
+    db.open();
+    db.append(userName, playTime, guessCount);
+  }
+
+  private void printResult(View v) {
     String userInput = input.getText().toString();
     if (userInput.length() != 4) {
       output.setText(builder.append("Please enter 4 number.\n").toString());
@@ -117,12 +121,19 @@ public class GameActivity extends AppCompatActivity {
           .append(printRandom())
           .append("\n");
 
+      guessCount++;
+
       if (countA == 4) {
         long endTime = System.currentTimeMillis();
         builder.append("DONE.\n")
             .append("Time : ")
             .append((endTime - startTime) / 1000)
             .append(" Second.\n");
+
+        String userName = intent.getStringExtra("user_name");
+        long playTime = (endTime - startTime) / 1000;
+
+        insertUserRecord(userName, playTime, guessCount);
       }
       output.setText(builder.toString());
     }

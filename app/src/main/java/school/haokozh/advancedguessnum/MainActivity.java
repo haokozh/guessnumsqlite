@@ -1,16 +1,12 @@
-package school.haokozh.advancedguessnum.ui;
+package school.haokozh.advancedguessnum;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
-import school.haokozh.advancedguessnum.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,23 +27,12 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void setOnclickListener() {
-    buttonStart.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        moveToMainActivity();
-      }
-    });
-
-    buttonExit.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        exitApp();
-      }
-    });
+    buttonStart.setOnClickListener(v -> moveToMainActivity());
+    buttonExit.setOnClickListener(v -> exitApp());
   }
 
   private void moveToMainActivity() {
-    Intent intent = new Intent(this, MainActivity.class);
+    Intent intent = new Intent(this, GameActivity.class);
     intent.putExtra("userName", userName.getText().toString());
     startActivity(intent);
   }
@@ -64,29 +49,20 @@ public class MainActivity extends AppCompatActivity {
         .setMessage("Exit?")
         .setCancelable(false)
         .setPositiveButton("Yes",
-            new DialogInterface.OnClickListener() {
-              @Override
-              public void onClick(DialogInterface dialog, int which) {
-                // what to do if Yes is tapped
-                finishAffinity();
-                System.exit(0);
-              }
+            (dialog, which) -> {
+              // what to do if Yes is tapped
+              finishAffinity();
+              System.exit(0);
             })
         .setNeutralButton("Cancel",
-            new DialogInterface.OnClickListener() {
-              @Override
-              public void onClick(DialogInterface dialog, int which) {
-                // code to do on Cancel tapped
-                dialog.cancel();
-              }
+            (dialog, which) -> {
+              // code to do on Cancel tapped
+              dialog.cancel();
             })
         .setNegativeButton("No",
-            new DialogInterface.OnClickListener() {
-              @Override
-              public void onClick(DialogInterface dialog, int which) {
-                // code to do on No tapped
-                dialog.cancel();
-              }
+            (dialog, which) -> {
+              // code to do on No tapped
+              dialog.cancel();
             });
 
     AlertDialog alertDialog = alertDialogBuilder.create();
