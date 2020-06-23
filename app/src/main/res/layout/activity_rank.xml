@@ -20,11 +20,18 @@
     android:textSize="30sp"
     android:gravity="center_vertical|center_horizontal" />
 
-  <ListView
-    android:id="@+id/outputField"
+  <EditText
+    android:id="@+id/id_input"
     android:layout_width="match_parent"
-    android:layout_height="470dp"
-    android:layout_marginTop="150dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="150dp"/>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="430dp"
+    android:layout_marginTop="200dp"
+    tools:listitem="@layout/recyclerview_item"
     android:inputType="none"
     android:focusable="false"
     android:autofillHints="@string/app_title" />

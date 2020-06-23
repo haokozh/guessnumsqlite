@@ -1,6 +1,9 @@
 package school.haokozh.advancedguessnum;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
@@ -17,6 +20,7 @@ import java.util.Set;
 
 public class GameActivity extends AppCompatActivity {
 
+  private int userId;
   private int countA;
   private long startTime;
   private int guessCount;
@@ -31,6 +35,20 @@ public class GameActivity extends AppCompatActivity {
   private List<Integer> randList = new ArrayList<>();
   private StringBuilder builder = new StringBuilder();
 
+  private static SQLiteDatabase db;
+  private static final String DATABASE_NAME = "user_database";
+  private static final String TABLE_NAME = "user_table";
+  private static final String ID = "user_id";
+  private static final String NAME = "user_name";
+  private static final String PLAY_TIME = "play_time";
+  private static final String GUESS_COUNT = "guess_count";
+  private static final String CREATE_TABLE =
+      "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
+          ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+          NAME + " TEXT, " +
+          PLAY_TIME + " TEXT, " +
+          GUESS_COUNT + " TEXT);";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -38,9 +56,9 @@ public class GameActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     TextView userNameTextView = findViewById(R.id.user_name);
-    output = findViewById(R.id.outputField);
     input = findViewById(R.id.inputField);
     enter = findViewById(R.id.enterButton);
+    output = findViewById(R.id.outputField);
 
     output.setMovementMethod(new ScrollingMovementMethod());
     output.setVerticalScrollBarEnabled(true);
@@ -102,12 +120,6 @@ public class GameActivity extends AppCompatActivity {
     return result.toString();
   }
 
-  private void insertUserRecord(String userName, long playTime, int guessCount) {
-    GameDatabase db = new GameDatabase(GameActivity.this);
-    db.open();
-    db.append(userName, playTime, guessCount);
-  }
-
   private void printResult(View v) {
     String userInput = input.getText().toString();
     if (userInput.length() != 4) {
@@ -132,12 +144,29 @@ public class GameActivity extends AppCompatActivity {
 
         String userName = intent.getStringExtra("user_name");
         long playTime = (endTime - startTime) / 1000;
-
-        insertUserRecord(userName, playTime, guessCount);
+        createTable();
+        insert(userName, playTime, guessCount);
       }
       output.setText(builder.toString());
     }
 
     input.setText("");
   }
+
+  public void createTable() {
+    db = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+    db.execSQL(CREATE_TABLE);
+    db.close();
+  }
+
+  public void insert(String name, long playTime, int guessCount) {
+    String INSERT = "INSERT INTO " + TABLE_NAME + "( " +
+        NAME + ", " + PLAY_TIME + ", " + GUESS_COUNT + ") " +
+        "VALUES ('" +name + "', '" + playTime + "', '" + guessCount + "')";
+
+    db = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+    db.execSQL(INSERT);
+    db.close();
+  }
+
 }
